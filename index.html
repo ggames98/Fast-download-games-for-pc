@@ -8,7 +8,7 @@
   <title>تحميل ألعاب الكمبيوتر</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="stylesheet" href="style.css">
-  <link rel="icon" type="image/x-icon" href="img/favicon.ico">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
   <style>
     * {
       margin: 0;
@@ -16,9 +16,16 @@
       box-sizing: border-box;
       direction: rtl;
     }
+
+    body {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+
     header {
       background-color: #111;
-      position: fixed;
+      position: relative;
       top: 0;
       width: 100%;
       height: 180px;
@@ -147,10 +154,11 @@
     }
 
     .main {
-      padding-top: 200px;
+      padding-top: 40px;
       font-size: 20px;
       color: black;
       min-height: 80vh;
+      flex: 1;
     }
 
     .games-grid {
@@ -178,7 +186,7 @@
     }
 
     .game-caption {
-      background-color: #111;
+      background-color: #000000;
       color: white;
       text-align: center;
       padding: 10px;
@@ -196,10 +204,8 @@
       text-align: center;
       padding: 20px;
       font-size: 16px;
-      position: fixed;
-      bottom: 0;
       width: 100%;
-      z-index: 999;
+      margin-top: auto;
     }
   </style>
 </head>
@@ -207,7 +213,7 @@
 
   <header>
     <a class="logo" href="index.html">
-      تحميل ألعاب الكمبيوتر
+    تحميل العاب الكمبيوتر
       <i class="fa-solid fa-desktop"></i>
     </a>
     <div class="top-bar">
@@ -225,6 +231,10 @@
 
   <div class="main">
     <div class="games-grid">
+      <div class="game" onclick="location.href='gta san.html'">
+        <img src="img/gta_san_icon.jpg" alt="GTA San Andreas">
+        <div class="game-caption">GTA San Andreas</div>
+      </div>
       <div class="game" onclick="location.href='cs16.html'">
         <img src="img/cs1.6_icon_200px.jpg" alt="CS 1.6">
         <div class="game-caption">Counter Strike 1.6</div>
@@ -242,8 +252,10 @@
 
     // قائمة الألعاب الموجودة حاليًا
     const games = [
-      { name: "Counter Strike 1.6", url: "cs16.html" }
+      { name: "Counter Strike 1.6", url: "cs16.html" },
+      { name: "Gta San Andreas", url: "gta san.html" }
     ];
+
 
     searchInput.addEventListener("input", () => {
       const value = searchInput.value.toLowerCase();
