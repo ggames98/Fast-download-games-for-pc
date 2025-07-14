@@ -1,0 +1,278 @@
+
+
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>تحميل Counter Strike 1.6</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/x-icon" href="img/favicon.ico">
+  <style>
+    .top-bar {
+      background-color: #111;
+      padding: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 24px;
+      color: white;
+      font-weight: bold;
+      text-decoration: none;
+    }
+
+    .nav-link {
+      background-color: #3fa9f5;
+      padding: 8px 16px;
+      color: white;
+      text-decoration: none;
+      border-radius: 6px;
+      font-weight: bold;
+      transition: 0.3s;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 16px;
+    }
+
+    .nav-link:hover {
+      background-color: white;
+      color: #3fa9f5;
+    }
+
+    .search-bar {
+      display: flex;
+      align-items: center;
+      background-color: white;
+      border-radius: 8px;
+      padding: 6px 12px;
+      position: relative;
+    }
+
+    .search-bar input {
+      border: none;
+      background: none;
+      color: black;
+      outline: none;
+      padding: 6px;
+      font-size: 16px;
+      width: 180px;
+    }
+
+    .search-bar button {
+      background-color: #3fa9f5;
+      border: none;
+      color: white;
+      padding: 6px 10px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    #search-results {
+      position: absolute;
+      top: 110%;
+      left: 0;
+      width: 229px;
+      background-color: #e0e0e0;
+      border-radius: 6px;
+      padding: 5px;
+      display: none;
+      font-size: 19px;
+      box-shadow: 0 0 4px rgba(0,0,0,0.1);
+      max-height: 150px;
+      overflow-y: auto;
+      z-index: 1000;
+    }
+
+    #search-results div {
+      padding: 6px 10px;
+      border-bottom: 1px solid #ccc;
+      cursor: pointer;
+    }
+
+    #search-results div:last-child {
+      border-bottom: none;
+    }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: calc(100vh - 120px);
+      padding: 40px 20px;
+    }
+
+    .status-text {
+      font-size: 18px;
+      margin-bottom: 10px;
+      color: black;
+    }
+
+    .percent-text {
+      font-size: 20px;
+      font-weight: bold;
+      color: #3fa9f5;
+      margin-bottom: 10px;
+    }
+
+    .progress-box {
+      width: 90%;
+      max-width: 400px;
+      height: 22px;
+      background: #ddd;
+      border-radius: 12px;
+      overflow: hidden;
+      margin-bottom: 30px;
+    }
+
+    .progress-bar {
+      height: 100%;
+      width: 0;
+      background: #3fa9f5;
+      transition: width 1s linear;
+    }
+
+    #ready-btn {
+      display: none;
+      background-color: #4CAF50;
+      color: white;
+      padding: 10px 20px;
+      width: 220px;
+      height: 40px;
+      border: none;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: transform 0.3s ease, background-color 0.3s ease;
+      font-weight: bold;
+      font-size: 18px;
+      transform: scale(1.1);
+      margin-top: 10px;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #ready-btn.show {
+      display: flex;
+    }
+
+    #ready-btn:hover {
+      background-color: #45a049;
+      transform: scale(1.15);
+    }
+
+    footer {
+      background-color: #111;
+      color: white;
+      text-align: center;
+      padding: 20px;
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ✅ الشريط العلوي -->
+  <div class="top-bar">
+    <a class="logo" href="cs16.html">تحميل Counter strike 1.6</a>
+    <div style="display: flex; gap: 10px; align-items: center;">
+      <a href="index.html" class="nav-link"><i class="fa-brands fa-windows"></i> تحميل ألعاب كمبيوتر</a>
+      <form class="search-bar" onsubmit="return false">
+        <input type="text" id="search-input" placeholder="ابحث هنا..." required autocomplete="off">
+        <button type="submit"><i class="fas fa-search"></i></button>
+        <div id="search-results"></div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ✅ المحتوى -->
+  <div class="container">
+    <div class="status-text" id="status-text">جاري تجهيز رابطك يرجى الانتظار...</div>
+    <div class="percent-text" id="percent-text">0%</div>
+
+    <div class="progress-box">
+      <div class="progress-bar" id="bar"></div>
+    </div>
+
+    <a id="ready-btn" href="CS16.zip" download>
+      <i class="fas fa-download" style="margin-left:6px;"></i> تحميل اللعبة
+    </a>
+  </div>
+
+  <!-- ✅ الفوتر -->
+  <footer>
+    جميع الحقوق محفوظة © 2025
+  </footer>
+
+  <!-- ✅ السكربت -->
+  <script>
+    const duration = 15;
+    let counter = 0;
+
+    const bar = document.getElementById('bar');
+    const btn = document.getElementById('ready-btn');
+    const statusText = document.getElementById('status-text');
+    const percentText = document.getElementById('percent-text');
+
+    const timer = setInterval(() => {
+      counter++;
+      const percent = Math.min((counter / duration) * 100, 100);
+      bar.style.width = percent + '%';
+      percentText.textContent = Math.round(percent) + '%';
+
+      if (counter >= duration) {
+        clearInterval(timer);
+        statusText.textContent = 'رابطك جاهز';
+        percentText.style.display = 'none';
+        btn.classList.add('show');
+      }
+    }, 1000);
+
+    // 🔍 سكربت البحث
+    const searchInput = document.getElementById("search-input");
+    const searchResults = document.getElementById("search-results");
+
+    const games = [
+      { name: "Counter Strike 1.6", url: "cs16.html" }
+    ];
+
+    searchInput.addEventListener("input", () => {
+      const value = searchInput.value.toLowerCase().trim();
+      searchResults.innerHTML = "";
+
+      if (value === "") {
+        searchResults.style.display = "none";
+        return;
+      }
+
+      const matches = games.filter(game => game.name.toLowerCase().includes(value));
+      if (matches.length > 0) {
+        matches.forEach(game => {
+          const div = document.createElement("div");
+          div.textContent = game.name;
+          div.onclick = () => window.location.href = game.url;
+          searchResults.appendChild(div);
+        });
+      } else {
+        const div = document.createElement("div");
+        div.textContent = "هذه اللعبة غير موجودة";
+        searchResults.appendChild(div);
+      }
+
+      searchResults.style.display = "block";
+    });
+
+    document.addEventListener("click", (e) => {
+      if (!document.querySelector(".search-bar").contains(e.target)) {
+        searchResults.style.display = "none";
+      }
+    });
+  </script>
+
+</body>
+</html>

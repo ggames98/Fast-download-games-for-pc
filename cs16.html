@@ -1,0 +1,431 @@
+
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>تحميل Counter Strike 1.6</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/x-icon" href="img/favicon.ico">
+  <style>
+    .top-bar {
+      background-color: #111;
+      padding: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      position: relative;
+    }
+
+    .logo {
+      font-size: 40px;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      transition: color 0.3s ease;
+    }
+
+    .logo:hover {
+      color: #3fa9f5;
+    }
+
+    .top-bar .nav-link {
+      background-color: #3fa9f5;
+      padding: 8px 16px;
+      color: white;
+      text-decoration: none;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      font-weight: bold;
+      gap: 6px;
+      font-size: 16px;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    .top-bar .nav-link:hover {
+      background-color: white;
+      color: #3fa9f5;
+    }
+
+    .search-bar {
+      display: flex;
+      align-items: center;
+      background-color: white;
+      border-radius: 8px;
+      padding: 6px 12px;
+    }
+
+    .search-bar input {
+      border: none;
+      background: none;
+      color: black;
+      outline: none;
+      padding: 6px;
+      font-size: 16px;
+    }
+
+    .search-bar button {
+      background-color: #3fa9f5;
+      border: none;
+      color: white;
+      padding: 6px 10px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    #search-results {
+      position: absolute;
+      top: 70px;
+      left: 20px;
+      width: 260px;
+      background-color: #e0e0e0;
+      border-radius: 6px;
+      padding: 5px;
+      display: none;
+      z-index: 1001;
+      font-size: 14px;
+      box-shadow: 0 0 4px rgba(0,0,0,0.1);
+      max-height: 150px;
+      overflow-y: auto;
+    }
+
+    #search-results div {
+      padding: 6px 10px;
+      border-bottom: 1px solid #ccc;
+      cursor: pointer;
+    }
+
+    #search-results div:last-child {
+      border-bottom: none;
+    }
+
+    .ad-top, .ad-bottom {
+      width: 100%;
+      height: auto;
+      text-align: center;
+      margin: 20px 0;
+    }
+
+    .ad-top img, .ad-bottom img {
+      max-width: 100%;
+      height: auto;
+    }
+
+    header {
+      background-color: #111;
+      color: white;
+      padding: 20px;
+      text-align: center;
+      font-size: 36px;
+      font-weight: bold;
+    }
+
+    .main-layout {
+      display: flex;
+      justify-content: space-between;
+      padding: 40px 20px;
+      gap: 20px;
+    }
+
+    .content-section,
+    .sidebar-games {
+      background-color: #f1f1f1;
+      padding: 20px;
+      border-radius: 6px;
+    }
+
+    .content-section {
+      width: 75%;
+    }
+
+    .sidebar-games {
+      width: 23%;
+    }
+
+    .sidebar-games h3 {
+      text-align: center;
+      margin-bottom: 10px;
+      font-size: 18px;
+      background-color: #3fa9f5;
+      color: white;
+      padding: 10px;
+      border-radius: 6px;
+    }
+
+    .sidebar-games .game {
+      margin-bottom: 20px;
+      cursor: pointer;
+      border: 2px solid #000;
+      transition: transform 0.3s ease;
+    }
+
+    .sidebar-games .game:hover {
+      transform: scale(1.03);
+    }
+
+    .sidebar-games img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .sidebar-games .caption {
+      background-color: #111;
+      color: white;
+      text-align: center;
+      padding: 10px;
+      font-size: 14px;
+      transition: color 0.3s ease;
+    }
+
+    .sidebar-games .game:hover .caption {
+      color: #3fa9f5;
+    }
+
+    .specs-container {
+      margin: 0 auto;
+      max-width: 100%;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      background-color: #f1f1f1;
+    }
+
+    .specs-header {
+      background-color: #3fa9f5;
+      color: white;
+      text-align: center;
+      font-size: 24px;
+      padding: 8.5px 0;
+      margin-top: 30px;
+    }
+
+    .specs-description {
+      padding: 15px;
+      font-size: 16px;
+      color: black;
+      line-height: 2;
+    }
+
+    .specs-box {
+      padding: 17px;
+      font-size: 16px;
+      line-height: 2;
+      color: black;
+    }
+
+    .specs-box ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .specs-box li {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+
+    .gallery {
+      margin-top: 30px;
+    }
+
+    .gallery img {
+      width: 100%;
+      margin-bottom: 20px;
+      border: 2px solid #ccc;
+    }
+
+    .download-section {
+      background-color: #fff;
+      padding: 30px 20px;
+      text-align: center;
+      margin-top: 40px;
+      border-radius: 6px;
+      border: 2px solid #3fa9f5;
+    }
+
+    .download-section h2 {
+      color: #3fa9f5;
+      font-size: 28px;
+      margin-bottom: 20px;
+    }
+
+    .download-section p {
+      font-size: 20px;
+      line-height: 2.2;
+      text-align: center;	
+      margin-left: auto;
+      margin-right: auto;
+      max-width: 700px;
+      white-space: pre-line;
+    }
+
+    .download-buttons {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .download-buttons a {
+      background-color: #3fa9f5;
+      color: white;
+      padding: 15px 30px;
+      font-size: 20px;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: background-color 0.3s, transform 0.3s;
+      display: inline-block;
+    }
+
+    .download-buttons a:hover {
+      background-color: #1c8edb;
+      transform: scale(1.05);
+    }
+
+    footer {
+      background-color: #111;
+      color: white;
+      text-align: center;
+      padding: 20px;
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+  <div class="top-bar">
+    <a class="logo" href="index.html">تحميل العاب كمبيوتر</a>
+    <div style="display: flex; gap: 10px; align-items: center;">
+      <a href="index.html" class="nav-link"><i class="fa-brands fa-windows"></i> تحميل ألعاب كمبيوتر</a>
+      <form class="search-bar" onsubmit="return false">
+        <input type="text" id="search-input" name="q" placeholder="ابحث هنا..." required autocomplete="off">
+        <button type="submit"><i class="fas fa-search"></i></button>
+      </form>
+      <div id="search-results"></div>
+    </div>
+  </div>
+
+  <header>تحميل Counter Strike 1.6</header>
+
+  <div class="ad-top">
+    <img src="ad-top.jpg" alt="إعلان علوي">
+  </div>
+
+  <div class="main-layout">
+    <div class="content-section">
+      <div class="specs-container">
+        <div class="specs-header">عن اللعبة</div>
+        <div class="specs-description">
+         Counter Strike 1.6 هي لعبة إطلاق نار جماعية مثيرة (مطلق النار)، تحظى بشعبية لأكثر من 20 عامًا، حيث توجد اشتباكات منتظمة بين طرفين: الإرهابيين (قطاع الطرق) ومكافحة الإرهابيين (الشرطة). يتم تجميع فريق القواطع من ممثلين عن مختلف الجماعات الإجرامية من جميع أنحاء العالم. كما أن الفريق المشترك لمكافحة الإرهاب متعدد الجنسيات ويمثله محاربون من مختلف القوات الخاصة.
+          <br><br>
+          يتم القتال في CS 1.6 في موقع محدد يسمى الخريطة، حيث يكتشف اللصوص والشرطة، على مدار فترة زمنية محددة، العلاقة التي يكون أي منهم هو الأفضل. بالإضافة إلى حساب انتصارات الفريق، يمكن لكل لاعب تمييز نفسه بشكل فردي عن طريق تسجيل أكبر عدد ممكن من النقاط (قتل المعارضين).
+          <br><br>
+          على عكس منشئها، لعبة Half-Life، ليس لديها قصة مبنية بدقة. نتيجةً لذلك، تمكن المطورون من إطلاق جهاز محاكاة مناسب جدًا لعملية خاصة، يقتصر فقط على مهمة الفريق، التي تم تعيينها بواسطة الخريطة، حيث تحدث "الفوضى". في بداية كل جولة، يحصل اللاعبون على مبلغ معين من أموال اللعبة (عادةً ما يكون 800 دولار)، والتي يحتاج اللاعبون إلى شراء برميل (من المسدس إلى بندقية القنص الثقيلة) والمعدات (من سترة مضادة للرصاص إلى جهاز لإزالة الأجهزة المتفجرة).
+          <br><br>
+          في CS 1.6، يمكنك الفوز بالجولة بعدة طرق: إما قتل جميع الخصوم، أو إكمال المهمة الأساسية للبطاقة. تحتوي البطاقات على مثل هذه المهام الأساسية: وضع قنبلة وتفجيرها (de_) وسحب الرهائن (cs_). على بطاقات cs_، يتعين على الشرطة إنقاذ الرهائن، وإذا لم يتم ذلك، يفوز الإرهابيون.
+          <br><br>
+          لكي تقع في حب هذه اللعبة، ما عليك سوى تنزيل Counter-Strike 1.6 من موقعنا الإلكتروني بأي طريقة مناسبة لك.
+        </div>
+
+        <div class="specs-header">مواصفات تشغيل</div>
+        <div class="specs-box">
+           <ul>
+            <li><span>نظام التشغيل :</span><span>Windows XP/Vista/7/8/10/11</span></li>
+            <li><span>المعالج :</span><span>500 MHz</span></li>
+            <li><span>الرام :</span><span>96 MB</span></li>
+            <li><span>كرت الشاشة :</span><span>16 MB</span></li>
+            <li><span>المساحة الحرة :</span><span>400 MB</span></li>
+          </ul>
+          <p style="text-align: center; color: #3fa9f5; font-weight: bold;">اللعبة خفيفة وتعمل على جميع المواصفات.</p>
+        </div>
+
+        <div class="specs-header">صور من اللعبة</div>
+        <div class="gallery">
+          <img src="img/img1.jpg" alt="صورة 1 من اللعبة">
+          <img src="img/img2.jpg" alt="صورة 2 من اللعبة">
+          <img src="img/img3.jpg" alt="صورة 3 من اللعبة">
+          <img src="img/img4.jpg" alt="صورة 4 من اللعبة">
+        </div>
+
+        <div class="specs-header">تحميل العبة</div>
+        <div class="specs-box">
+          <p>
+            مرحبًا بك في صفحة التحميل الرسمية للعبة Counter-Strike 1.6 – واحدة من أكثر ألعاب التصويب شهرة في العالم!<br><br>
+            استعد لخوض معارك حماسية بين الإرهابيين وقوات مكافحة الإرهاب في بيئات متنوعة مليئة بالإثارة والتحدي.<br><br>
+            تم تحسين هذه النسخة لتعمل بسلاسة على جميع أجهزة الكمبيوتر، حتى الضعيفة منها.<br>
+            لا تحتاج إلى تثبيت – فقط حمّل وشغّل فورًا!<br><br>
+            ✅ بدون تثبيت<br>
+            ✅ خفيفة جدًا (أقل من 500 ميجا)<br>
+            ✅ بدون إعلانات داخلية<br>
+            ✅ نسخة أونلاين وأوفلاين<br><br>
+            🎯 ماذا تنتظر؟ اضغط على زر التحميل بالأسفل وابدأ اللعب فورًا!
+          </p>
+          <div class="download-buttons">
+            <a href="download.html"><i class="fas fa-download"></i> تحميل اللعبة</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sidebar-games">
+      <!-- قائمة الألعاب المقترحة -->
+    </div>
+  </div>
+
+  <div class="ad-bottom">
+    <img src="ad-bottom.jpg" alt="إعلان سفلي">
+  </div>
+
+  <footer>
+    جميع الحقوق محفوظة © 2025
+  </footer>
+
+  <!-- ✅ سكربت البحث -->
+  <script>
+    const searchInput = document.getElementById("search-input");
+    const searchResults = document.getElementById("search-results");
+
+    const games = [
+      { name: "Counter Strike 1.6", link: "cs16.html" }
+    ];
+
+    searchInput.addEventListener("input", () => {
+      const value = searchInput.value.trim().toLowerCase();
+      searchResults.innerHTML = "";
+      if (!value) {
+        searchResults.style.display = "none";
+        return;
+      }
+
+      const matches = games.filter(game => game.name.toLowerCase().includes(value));
+      if (matches.length > 0) {
+        matches.forEach(game => {
+          const div = document.createElement("div");
+          div.textContent = game.name;
+          div.onclick = () => window.location.href = game.link;
+          searchResults.appendChild(div);
+        });
+      } else {
+        const div = document.createElement("div");
+        div.textContent = "هذه اللعبة غير موجودة";
+        searchResults.appendChild(div);
+      }
+
+      searchResults.style.display = "block";
+    });
+
+    document.addEventListener("click", (e) => {
+      if (!document.querySelector(".search-bar").contains(e.target)) {
+        searchResults.style.display = "none";
+      }
+    });
+  </script>
+</body>
