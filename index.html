@@ -8,7 +8,7 @@
   <title>تحميل ألعاب الكمبيوتر</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="stylesheet" href="style.css">
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="icon" type="image/x-icon" href="img/favicon.ico">
   <style>
     * {
       margin: 0;
@@ -207,6 +207,67 @@
       width: 100%;
       margin-top: auto;
     }
+    /* --------- تحسينات للهواتف والأجهزة الصغيرة --------- */
+  @media (max-width: 768px) {
+    header {
+      height: auto;
+      padding: 15px 10px;
+    }
+
+    .logo {
+      font-size: 26px;
+      flex-direction: column;
+      text-align: center;
+      margin-bottom: 10px;
+    }
+
+    .top-bar {
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .nav-link {
+      font-size: 14px;
+      padding: 6px 12px;
+      margin: 0;
+    }
+
+    .search-bar {
+      width: 100%;
+      max-width: 100%;
+      position: static;
+      margin: 0;
+    }
+
+    #search-results {
+      width: 100%;
+      left: 0;
+      max-width: 100%;
+    }
+
+    .main {
+      padding: 160px 10px 60px;
+      font-size: 18px;
+    }
+
+    .games-grid {
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      gap: 15px;
+      padding: 10px;
+    }
+
+    .game-caption {
+      font-size: 14px;
+      padding: 8px;
+    }
+
+    footer {
+      font-size: 14px;
+      padding: 15px;
+    }
+  }
+
   </style>
 </head>
 <body>
