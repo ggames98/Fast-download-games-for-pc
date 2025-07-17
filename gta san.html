@@ -9,6 +9,32 @@
   <link rel="stylesheet" href="style.css">
   <link rel="icon" type="image/x-icon" href="img/favicon.ico">
   <style>
+.game-caption {
+      background-color: #000000;
+      color: white;
+      text-align: center;
+      padding: 10px;
+      font-size: 16px;
+      transition: color 0.3s ease;
+    }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      direction: rtl;
+    }
+    .game {
+      cursor: pointer;
+      transition: transform 0.3s ease;
+      border: 2px solid #000;
+    }
+    .main {
+      padding-top: 40px;
+      font-size: 20px;
+      color: black;
+      min-height: 80vh;
+      flex: 1;
+    }
     .top-bar {
       background-color: #111;
       padding: 20px;
@@ -298,6 +324,51 @@
       padding: 20px;
       font-size: 16px;
     }
+      @media (max-width: 768px) {
+    .top-bar {
+      flex-direction: column;
+      gap: 10px;
+      align-items: flex-start;
+    }
+
+    .search-bar {
+      width: 100%;
+      margin-top: 10px;
+    }
+
+    .main-layout {
+      flex-direction: column;
+      padding: 20px 10px;
+    }
+
+    .content-section,
+    .sidebar-games {
+      width: 100%;
+    }
+
+    header {
+      font-size: 24px;
+      padding: 15px 10px;
+    }
+
+    .download-section p {
+      font-size: 16px;
+      line-height: 1.8;
+    }
+
+    .download-buttons a {
+      font-size: 18px;
+      padding: 12px 24px;
+    }
+
+    .gallery img {
+      margin-bottom: 10px;
+    }
+
+    .sidebar-games .caption {
+      font-size: 13px;
+    }
+  }
   </style>
 </head>
 <body>
@@ -387,7 +458,12 @@
     </div>
 
     <div class="sidebar-games">
-      <!-- قائمة الألعاب المقترحة -->
+      <div class="specs-header">العاب مقترحة</div>
+      <br>
+      <div class="game" onclick="location.href='cs16.html'">
+        <img src="img/cs1.6_icon_200px.jpg" alt="CS 1.6">
+        <div class="game-caption">Counter Strike 1.6</div>
+      </div>
     </div>
   </div>
 
